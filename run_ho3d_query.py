@@ -1,3 +1,6 @@
+import warnings
+warnings.filterwarnings("ignore")
+
 import copy
 
 from foundationpose.datareader import Ho3dReader
