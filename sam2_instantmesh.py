@@ -90,7 +90,7 @@ def running_sam_box(color, box=None,checkpoint="./sam2/checkpoints/sam2.1_hiera_
     return mask
 
 
-def preprocess_image(color, mask, debug_dir, name=None, rem_bg=True, target_bright = 999, flip=True):
+def preprocess_image(color, mask, debug_dir, name=None, rem_bg=True, target_bright = 999, flip=True, ids=0):
     """
     Preprocess input image by applying mask, removing background and resizing.
 
@@ -128,7 +128,7 @@ def preprocess_image(color, mask, debug_dir, name=None, rem_bg=True, target_brig
 
     # Save debug image if directory is provided
     if debug_dir:
-        input_image.save(os.path.join(debug_dir, f'input_{name}.png'))
+        input_image.save(os.path.join(debug_dir, f'input_preprocessed_image_{name}_{ids}.png'))
 
     return input_image
 

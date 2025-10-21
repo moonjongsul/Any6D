@@ -19,8 +19,8 @@ from sam2_instantmesh import *
 
 if __name__=='__main__':
     parser = argparse.ArgumentParser(description="Set experiment name and paths")
-    parser.add_argument("--anchor_folder", type=str, default="/home/miruware/ssd_4tb/cvpr_2025_results/anchor_results/dexycb_reference_view_ours", help="Path to the YCB-V model info JSON")
-    parser.add_argument("--ycb_model_path", type=str, default="/home/miruware/ssd_4tb/dataset/ho3d/YCB_Video_Models", help="Path to the YCB Video Models")
+    parser.add_argument("--anchor_folder", type=str, default="dataset/ho3d/dexycb_reference_view_ours", help="Path to the YCB-V model info JSON")
+    parser.add_argument("--ycb_model_path", type=str, default="dataset/ho3d/YCB_Video_Models", help="Path to the YCB Video Models")
     parser.add_argument("--img_to_3d", action="store_true",help="Running with InstantMesh+SAM2")
     args = parser.parse_args()
 
@@ -103,12 +103,15 @@ if __name__=='__main__':
 
         np.savetxt(os.path.join(save_path, f'{obj}_cd.txt'), [chamfer_dis])
 
-        results.append({
-            'Object': obj,
-            'Object_Number': obj_num,
-            'Chamfer_Distance': float(chamfer_dis)
-            })
-
+        try:
+            results.append({
+                'Object': obj,
+                'Object_Number': obj_num,
+                'Chamfer_Distance': float(chamfer_dis)
+                })
+        except:
+            pass
+        
     df = pd.DataFrame(results)
 
     df = df.sort_values('Object')
